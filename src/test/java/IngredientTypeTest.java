@@ -5,25 +5,26 @@ import praktikum.IngredientType;
 
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertNotNull;
-import static praktikum.IngredientType.FILLING;
-import static praktikum.IngredientType.SAUCE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class IngredientTypeTest {
 
+	private static Stream<Arguments> ingredientTypeTestData() {
+		return Stream.of(
+				Arguments.of(IngredientType.SAUCE, "SAUCE", 2),
+				Arguments.of(IngredientType.FILLING, "FILLING", 2)
+		);
+	}
+
 	@ParameterizedTest
 	@MethodSource("ingredientTypeTestData")
-	public void checkIngredientType(IngredientType ingredientType) {
+	public void checkIngredientType(IngredientType ingredientType, String expectedName, int expectedInt) {
 
 		System.out.println(ingredientType);
 
 		assertNotNull(ingredientType);
-	}
-
-	private static Stream<Arguments> ingredientTypeTestData() {
-		return Stream.of(
-				Arguments.of(IngredientType.SAUCE),
-				Arguments.of(IngredientType.FILLING)
-		);
+		assertEquals(expectedName, ingredientType.name());
+		assertEquals(expectedInt, IngredientType.values().length);
 	}
 }
